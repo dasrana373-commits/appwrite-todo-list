@@ -1,7 +1,9 @@
-import React from 'react'
-import {Editor } from '@tinymce/tinymce-react';
+import React from 'react';
 import {Controller } from 'react-hook-form';
 
+import {Editor } from '@tinymce/tinymce-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 export default function RTE({name, control, label, defaultValue =""}) {
   return (
@@ -49,6 +51,8 @@ export default function RTE({name, control, label, defaultValue =""}) {
         />
     )}
     />
+
+    {/* <ReactQuill theme="snow" value={value} onChange={setValue} /> */}
 
      </div>
   )
