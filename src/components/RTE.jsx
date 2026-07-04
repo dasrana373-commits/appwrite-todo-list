@@ -1,60 +1,66 @@
-import React from 'react';
-import {Controller } from 'react-hook-form';
+import React from "react";
+import { Controller } from "react-hook-form";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-import {Editor } from '@tinymce/tinymce-react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+export default function RTE({
+  name,
+  control,
+  label,
+  defaultValue = "",
+}) {
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ align: [] }],
+      ["link", "image"],
+      ["blockquote", "code-block"],
+      ["clean"],
+    ],
+  };
 
-export default function RTE({name, control, label, defaultValue =""}) {
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "color",
+    "background",
+    "list",
+    "bullet",
+    "align",
+    "link",
+    "image",
+    "blockquote",
+    "code-block",
+  ];
+
   return (
-    <div className='w-full'> 
-    {label && <label className='inline-block mb-1 pl-1'>{label}</label>}
+    <div className="w-full">
+      {label && (
+        <label className="mb-2 block text-sm font-semibold text-slate-700">
+          {label}
+        </label>
+      )}
 
-    <Controller
-    name={name || "content"}
-    control={control}
-    render={({field: {onChange}}) => (
-        <Editor
-        apiKey='zsdinn4pshoyfzeq8u2ijdoxz4r6qmgvohuvkq492wmytklx'
-        initialValue={defaultValue}
-        init={{
-            initialValue: defaultValue,
-            height: 500,
-            menubar: true,
-            plugins: [
-                "image",
-                "advlist",
-                "autolink",
-                "lists",
-                "link",
-                "image",
-                "charmap",
-                "preview",
-                "anchor",
-                "searchreplace",
-                "visualblocks",
-                "code",
-                "fullscreen",
-                "insertdatetime",
-                "media",
-                "table",
-                "code",
-                "help",
-                "wordcount",
-                "anchor",
-            ],
-            toolbar:
-            "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
-            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
-        }}
-        onEditorChange={onChange}
-        />
-    )}
-    />
-
-    {/* <ReactQuill theme="snow" value={value} onChange={setValue} /> */}
-
-     </div>
-  )
+      <Controller
+        name={name || "content"}
+        control={control}
+        defaultValue={defaultValue}
+        render={({ field }) => (
+          <ReactQuill
+            theme="snow"
+            value={field.value}
+            onChange={field.onChange}
+            modules={modules}
+            formats={formats}
+          />
+        )}
+      />
+    </div>
+  );
 }
-

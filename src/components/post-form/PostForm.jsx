@@ -17,18 +17,16 @@ export default function PostForm({ post }) {
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData.userData);
-    console.log(userData);
-    console.log('TEST PULL REQUEST');
     
     const submit = async (data) => {
         console.log(data);
         if (post) {
             console.log("if", post);
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+            // const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
-            if (file) {
-                appwriteService.deleteFile(post.featuredImage);
-            }
+            // if (file) {
+            //     appwriteService.deleteFile(post.featuredImage);
+            // }
 
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
@@ -42,13 +40,15 @@ export default function PostForm({ post }) {
             }
         } else {
             
-            console.log("else", post);
+            console.log("else", post, userData, userData.$id );
                 const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
 
                 if (dbPost) {
-                    // navigate(`/post/${dbPost.$id}`);
+                    console.log(dbPost);
                     
-                console.log('success');
+                    navigate(`/post/${dbPost.$id}`);
+                    
+                console.log('success create');
                 }
         }
     };

@@ -23,14 +23,14 @@ export default function Post() {
         } else navigate("/");
     }, [slug, navigate]);
 
-    const deletePost = () => {
-        appwriteService.deletePost(post.$id).then((status) => {
-            if (status) {
-                appwriteService.deleteFile(post.featuredImage);
-                navigate("/");
-            }
-        });
-    };
+    // const deletePost = () => {
+    //     appwriteService.deletePost(post.$id).then((status) => {
+    //         if (status) {
+    //             appwriteService.deleteFile(post.featuredImage);
+    //             navigate("/");
+    //         }
+    //     });
+    // };
 
     return post ? (
         <div className="py-8">
