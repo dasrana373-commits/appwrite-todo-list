@@ -8,10 +8,10 @@ import { useSelector } from "react-redux";
 export default function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
-            // title: post?.title || "",
-            // slug: post?.$id || "",
-            // content: post?.content || "",
-            // status: post?.status || "active",
+            title: post?.title || "",
+            slug: post?.$id || "",
+            content: post?.content || "",
+            status: post?.status || "active",
         },
     });
 
@@ -34,8 +34,7 @@ export default function PostForm({ post }) {
             });
 
             if (dbPost) {
-                // navigate(`/post/${dbPost.$id}`);
-                console.log('success');
+                navigate(`/post/${dbPost.$id}`);
                 
             }
         } else {

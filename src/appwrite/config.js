@@ -59,8 +59,8 @@ export class Service{
                 conf.appwriteDatabasetId,
                 conf.appwriteCollectionId,
                 slug,
-            )
-            return true
+            );
+            return true;
         }catch(error){
             console.log("Appwrite delete error: ",error);
             return false;
