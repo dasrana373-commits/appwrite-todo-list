@@ -24,7 +24,7 @@ function PostCard({$id, title,content, status, featuredImage}) {
           )} */}
         </ImageWrapper>
 
-        <Status>{status}</Status>
+        <Status className={`${status}`}>{status}</Status>
 
         <Title>{title}</Title>
 
@@ -88,6 +88,9 @@ const Status = styled.span`
   font-size:13px;
   margin-bottom:14px;
   text-transform:capitalize;
+  &.inactive{
+    background:rgba(204, 51, 31, 0.696);
+  }
 `;
 
 const Title = styled.h2`

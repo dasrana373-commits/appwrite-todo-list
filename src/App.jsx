@@ -5,6 +5,7 @@ import authService from "./appwrite/auth"
 import {login, logout} from "./store/authSlice"
 import { Footer, Header } from './components'
 import { Outlet } from 'react-router-dom'
+import styled from 'styled-components'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -27,12 +28,17 @@ function App() {
       <div className='w-full block'>
         <Header />
         <main>
-        <Outlet />
+          <PageStyled>
+            <Outlet />
+          </PageStyled>
         </main>
         <Footer />
       </div>
     </div>
   ) : null
 }
+const PageStyled = styled.div`
+  min-height: calc(100vh - 120px);
+`;
 
 export default App
