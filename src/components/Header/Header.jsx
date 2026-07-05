@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Container, Logo, LogoutBtn} from '../index'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 function Header() {
+  const [select, setSelect] = useState();
   const authStatus = useSelector((state) => state.auth.status)
   const navigate = useNavigate()
 
@@ -44,18 +45,23 @@ function Header() {
           <div className='mr-4'>
             <Link to='/'>
               <Logo width='70px'   />
-
               </Link>
           </div>
           <ul className='flex ml-auto'>
             {navItems.map((item) => 
             item.active ? (
               <li key={item.name}>
-                <button
-                onClick={() => navigate(item.slug)}
-                className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
-                >{item.name}</button>
-              </li>
+    <NavLink
+        to={item.slug}
+        className={({ isActive }) =>
+            `inline-block px-6 py-2 rounded-full duration-200 hover:bg-blue-100 ${
+                isActive ? "bg-blue-600 text-white" : ""
+            }`
+        }
+    >
+        {item.name}
+    </NavLink>
+</li>
             ) : null
             )}
             {authStatus && (

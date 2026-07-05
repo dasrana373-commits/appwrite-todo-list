@@ -60,7 +60,10 @@ export default function Post() {
                 </div>
                 <div className="browser-css">
                     {parse(post.content)}
-                    </div>
+                </div>
+                <div className="status">
+                    {post.status}
+                </div>
             </Container>
         </div>
     ) : null;
