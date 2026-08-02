@@ -1,14 +1,16 @@
-import React from 'react'
-import appwriteService from "../appwrite/config"
-import {Link} from 'react-router-dom'
+import React from 'react';
+import appwriteService from "../appwrite/config";
+import {Link} from 'react-router-dom';
 import parse from "html-react-parser";
 import styled from "styled-components";
 import { FiArrowUpRight, FiFileText } from "react-icons/fi";
+import { useSelector } from 'react-redux';
 
 function PostCard({$id, title,content, status, featuredImage}) {
-    
+  const isAuthenticated= useSelector((state) => state.auth.status); 
+
   return (
-       <StyledLink to={`/post/${$id}`}>
+       <StyledLink to={isAuthenticated ? `/post/${$id}` : "/login"}>
       <Card>
 
         <ImageWrapper>
