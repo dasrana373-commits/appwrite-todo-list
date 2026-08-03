@@ -9,13 +9,13 @@ import {FaEye, FaEyeSlash} from 'react-icons/fa'
 
 function Signup() {
     const navigate = useNavigate();
-    const [error, setError] = useState("");
+    const [submitError, setSubmitError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, formState:{errors}} = useForm();
 
     const create = async(data) => {
-        setError("")
+        setSubmitError("")
         try {
             const userData = await authService.createAccount(data)
             if (userData) {
@@ -24,7 +24,7 @@ function Signup() {
                 navigate("/")
             }
         } catch (error) {
-            setError(error.message)
+            setSubmitError(error.message)
         }
     }
 
@@ -46,35 +46,39 @@ function Signup() {
                         Sign In
                     </Link>
                 </p>
-                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+                {submitError && <div className='bg-red-100 p-3 my-6 rounded-md border border-red-200'> <p className="text-red-600  text-center">{submitError}</p></div>}
 
                 <form onSubmit={handleSubmit(create)}>
                     <div className='space-y-5'>
                         <Input
-                        label="Full Name: "
-                        placeholder="Enter your full name"
-                        {...register("name", {
-                            required: true,
-                        })}
+                            label="Full Name"
+                            placeholder="Enter your full name"
+                            {...register("name", {
+                                required: "Please enter your full name.",
+                            })}
                         />
+                        {errors.name && <p className="text-red-600 text-sm !mt-1">{errors.name.message}</p>}
                         <Input
-                        label="Email: "
+                        label="Email "
                         placeholder="Enter your email"
                         type="email"
                         {...register("email", {
-                            required: true,
+                            required: "please enter your email",
                             validate: {
                                 matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                                 "Email address must be a valid address",
                             }
                         })}
                         />
+                        {errors.email && <p className="text-red-600 text-sm !mt-1">{errors.email.message}</p>}
                         <div className="relative">
                             <Input
-                                label="Password: "
+                                label="Password"
                                 type={showPassword ? "text" : "password"} // 2. Change type
                                 placeholder="Enter your password"
-                                {...register("password", { required: true })}
+                                {...register("password", { 
+                                    required: "please enter your password"
+                                })}
                             />
                             <span
                                 className="absolute right-3 top-9 cursor-pointer text-xl text-gray-500"
@@ -82,7 +86,8 @@ function Signup() {
                             >
                                 {showPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
-                        </div>
+                        </div>                        
+                        {errors.password && <p className="text-red-600 text-sm !mt-1">{errors.password.message}</p>}
                         <Button type="submit" className="w-full">
                             Create Account
                         </Button>
