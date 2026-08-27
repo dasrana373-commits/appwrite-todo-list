@@ -134,7 +134,6 @@ This project is licensed under the MIT License.
 
 Frontend Developer | React Developer | Website Designer
 
-* Portfolio: https://rana-code.vercel.app
 * GitHub: https://github.com/dasrana373-commits
 * LinkedIn: https://www.linkedin.com/in/rana-das-frontend
 
